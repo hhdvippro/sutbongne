@@ -8,16 +8,31 @@
 </head>
 <body>
     <div class="game-container">
-        <div id="intro-screen" class="screen">
+        <!-- Màn hình chọn cấp độ -->
+        <div id="level-select-screen" class="screen">
+            <h1>Game Sút Bóng vào Gôn</h1>
+            <p>Chọn cấp độ bạn muốn chơi:</p>
+            <div class="level-options">
+                <button class="level-btn" data-level="1">Phần 1: Tập Sự</button>
+                <button class="level-btn" data-level="2">Phần 2: Trung Cấp</button>
+                <button class="level-btn" data-level="3">Phần 3: Chuyên Gia</button>
+            </div>
+        </div>
+
+        <!-- Màn hình chuẩn bị -->
+        <div id="intro-screen" class="screen hidden">
             <h1>Game Sút Bóng vào Gôn</h1>
             <p>Bạn đang ở phần: <span id="current-level">Tập Sự</span></p>
+            <div class="level-description" id="level-description"></div>
             <div class="progress-container">
                 <div class="progress-bar" id="progress-bar"></div>
                 <span id="progress-text">0/9</span>
             </div>
             <button id="start-btn" class="btn">Bắt Đầu</button>
+            <button id="back-btn" class="btn btn-secondary">Quay lại</button>
         </div>
 
+        <!-- Màn hình chơi game -->
         <div id="game-screen" class="screen hidden">
             <div class="goal"></div>
             <div class="options">
@@ -29,19 +44,22 @@
             <div class="keeper" id="keeper"></div>
         </div>
 
+        <!-- Màn hình kết quả -->
         <div id="result-screen" class="screen hidden">
             <h2 id="result-title">Kết Quả</h2>
             <p id="result-message"></p>
             <button id="next-kick-btn" class="btn">Sút tiếp</button>
-            <button id="next-level-btn" class="btn hidden">Lên cấp độ tiếp theo</button>
-            <button id="restart-btn" class="btn hidden">Chơi lại từ đầu</button>
+            <button id="bonus-btn" class="btn hidden">Nhận thưởng</button>
+            <button id="return-btn" class="btn btn-secondary">Chọn cấp độ khác</button>
         </div>
 
+        <!-- Màn hình nổ hũ -->
         <div id="bonus-screen" class="screen hidden">
             <h2>Nổ Hũ!</h2>
             <p>Chúc mừng bạn đã hoàn thành cấp độ này!</p>
             <div class="confetti"></div>
-            <button id="continue-btn" class="btn">Tiếp tục</button>
+            <button id="play-again-btn" class="btn">Chơi lại</button>
+            <button id="choose-level-btn" class="btn btn-secondary">Chọn cấp độ khác</button>
         </div>
     </div>
 
