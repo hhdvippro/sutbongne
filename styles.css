@@ -209,6 +209,35 @@ body {
     left: 50%;
     animation: confetti 5s ease-in-out infinite;
 }
+/* Thêm CSS cho phần thống kê */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.stat {
+    margin: 5px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    min-width: 120px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+}
+
+.stat-value {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
 
 @keyframes confetti {
     0% {
