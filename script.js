@@ -1,21 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Game elements
+    const levelSelectScreen = document.getElementById('level-select-screen');
     const introScreen = document.getElementById('intro-screen');
     const gameScreen = document.getElementById('game-screen');
     const resultScreen = document.getElementById('result-screen');
     const bonusScreen = document.getElementById('bonus-screen');
     
+    const levelBtns = document.querySelectorAll('.level-btn');
     const startBtn = document.getElementById('start-btn');
+    const backBtn = document.getElementById('back-btn');
     const optionBtns = document.querySelectorAll('.option-btn');
     const nextKickBtn = document.getElementById('next-kick-btn');
-    const nextLevelBtn = document.getElementById('next-level-btn');
-    const restartBtn = document.getElementById('restart-btn');
-    const continueBtn = document.getElementById('continue-btn');
+    const bonusBtn = document.getElementById('bonus-btn');
+    const returnBtn = document.getElementById('return-btn');
+    const playAgainBtn = document.getElementById('play-again-btn');
+    const chooseLevelBtn = document.getElementById('choose-level-btn');
     
     const ball = document.getElementById('ball');
     const keeper = document.getElementById('keeper');
     
     const currentLevelText = document.getElementById('current-level');
+    const levelDescription = document.getElementById('level-description');
     const progressBar = document.getElementById('progress-bar');
     const progressText = document.getElementById('progress-text');
     const resultTitle = document.getElementById('result-title');
@@ -29,17 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Level configurations
     const levels = {
         1: {
-            name: "Tập Sự",
+            name: "Phần 1: Tập Sự",
+            description: "Dễ nhất - Thủ môn di chuyển chậm, tỉ lệ sút thành công cao.",
             successRate: 0.8, // 80% chance to score
             keeperSpeed: 1000 // milliseconds to move
         },
         2: {
-            name: "Trung Cấp",
+            name: "Phần 2: Trung Cấp",
+            description: "Khó hơn - Thủ môn di chuyển nhanh hơn, tỉ lệ sút thành công trung bình.",
             successRate: 0.5, // 50% chance to score
             keeperSpeed: 700
         },
         3: {
-            name: "Chuyên Gia",
+            name: "Phần 3: Chuyên Gia",
+            description: "Khó nhất - Thủ môn di chuyển rất nhanh, tỉ lệ sút thành công thấp.",
             successRate: 0.3, // 30% chance to score
             keeperSpeed: 400
         }
@@ -47,7 +55,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize game
     function initGame() {
+        showScreen(levelSelectScreen);
+    }
+    
+    // Select level
+    function selectLevel(level) {
+        currentLevel = parseInt(level);
         currentLevelText.textContent = levels[currentLevel].name;
+        levelDescription.textContent = levels[currentLevel].description;
         successfulKicks = 0;
         updateProgress();
         showScreen(introScreen);
@@ -62,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show a specific screen and hide others
     function showScreen(screen) {
-        [introScreen, gameScreen, resultScreen, bonusScreen].forEach(s => {
+        [levelSelectScreen, introScreen, gameScreen, resultScreen, bonusScreen].forEach(s => {
             s.classList.add('hidden');
         });
         screen.classList.remove('hidden');
@@ -148,12 +163,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check if level is completed
             if (successfulKicks >= 9) {
                 nextKickBtn.classList.add('hidden');
-                nextLevelBtn.classList.remove('hidden');
+                bonusBtn.classList.remove('hidden');
                 resultMessage.textContent += " Bạn đã hoàn thành cấp độ này!";
             }
         } else {
             resultTitle.textContent = "Thủ Môn Bắt Được!";
             resultMessage.textContent = `Thủ môn đã chặn được cú sút về phía ${side}.`;
+            nextKickBtn.classList.remove('hidden');
+            bonusBtn.classList.add('hidden');
         }
     }
     
@@ -181,9 +198,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Event listeners
+    levelBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const level = btn.getAttribute('data-level');
+            selectLevel(level);
+        });
+    });
+    
     startBtn.addEventListener('click', () => {
         showScreen(gameScreen);
         moveKeeper();
+    });
+    
+    backBtn.addEventListener('click', () => {
+        showScreen(levelSelectScreen);
     });
     
     optionBtns.forEach(btn => {
@@ -202,25 +230,20 @@ document.addEventListener('DOMContentLoaded', function() {
         moveKeeper();
     });
     
-    nextLevelBtn.addEventListener('click', () => {
-        if (currentLevel < 3) {
-            currentLevel++;
-            showBonus();
-        } else {
-            // Game completed
-            nextLevelBtn.classList.add('hidden');
-            restartBtn.classList.remove('hidden');
-            showBonus();
-        }
+    bonusBtn.addEventListener('click', () => {
+        showBonus();
     });
     
-    continueBtn.addEventListener('click', () => {
-        initGame();
+    returnBtn.addEventListener('click', () => {
+        showScreen(levelSelectScreen);
     });
     
-    restartBtn.addEventListener('click', () => {
-        currentLevel = 1;
-        initGame();
+    playAgainBtn.addEventListener('click', () => {
+        selectLevel(currentLevel);
+    });
+    
+    chooseLevelBtn.addEventListener('click', () => {
+        showScreen(levelSelectScreen);
     });
     
     // Start the game
