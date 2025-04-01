@@ -51,6 +51,48 @@ body {
     background-color: #45a049;
 }
 
+.btn-secondary {
+    background-color: #2196F3;
+}
+
+.btn-secondary:hover {
+    background-color: #0b7dda;
+}
+
+.level-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%;
+    margin: 20px 0;
+}
+
+.level-btn {
+    padding: 15px;
+    font-size: 18px;
+    background-color: #ff9800;
+}
+
+.level-btn:hover {
+    background-color: #e68a00;
+}
+
+.level-btn[data-level="2"] {
+    background-color: #ff5722;
+}
+
+.level-btn[data-level="2"]:hover {
+    background-color: #e64a19;
+}
+
+.level-btn[data-level="3"] {
+    background-color: #f44336;
+}
+
+.level-btn[data-level="3"]:hover {
+    background-color: #d32f2f;
+}
+
 .progress-container {
     width: 80%;
     margin: 20px 0;
@@ -75,6 +117,14 @@ body {
     transform: translate(-50%, -50%);
     color: #333;
     font-weight: bold;
+}
+
+.level-description {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    width: 80%;
 }
 
 /* Game screen styles */
