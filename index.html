@@ -62,7 +62,25 @@
             <button id="choose-level-btn" class="btn btn-secondary">Chọn cấp độ khác</button>
         </div>
     </div>
-
+    <!-- Thêm phần hiển thị thống kê sau phần progress-bar -->
+    <div class="stats-container">
+        <div class="stat">
+            <span class="stat-label">Sút thành công:</span>
+            <span class="stat-value" id="success-count">0</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Sút thất bại:</span>
+            <span class="stat-value" id="fail-count">0</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Tổng lượt sút:</span>
+            <span class="stat-value" id="total-count">0</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Tỉ lệ thành công:</span>
+            <span class="stat-value" id="success-rate">0%</span>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
