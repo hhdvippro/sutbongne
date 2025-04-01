@@ -52,7 +52,64 @@ document.addEventListener('DOMContentLoaded', function() {
             keeperSpeed: 400
         }
     };
+    // Thêm biến thống kê
+let stats = {
+    success: 0,
+    fail: 0,
+    get total() {
+        return this.success + this.fail;
+    },
+    get rate() {
+        return this.total > 0 ? Math.round((this.success / this.total) * 100) : 0;
+    }
+};
+
+// Thêm hàm cập nhật thống kê
+function updateStats() {
+    document.getElementById('success-count').textContent = stats.success;
+    document.getElementById('fail-count').textContent = stats.fail;
+    document.getElementById('total-count').textContent = stats.total;
+    document.getElementById('success-rate').textContent = `${stats.rate}%`;
+}
+
+// Cập nhật hàm showResult
+function showResult(isGoal, side) {
+    showScreen(resultScreen);
     
+    if (isGoal) {
+        resultTitle.textContent = "Vào Gôn!";
+        resultMessage.textContent = `Bạn đã sút thành công về phía ${side}!`;
+        successfulKicks++;
+        stats.success++;
+    } else {
+        resultTitle.textContent = "Thủ Môn Bắt Được!";
+        resultMessage.textContent = `Thủ môn đã chặn được cú sút về phía ${side}.`;
+        stats.fail++;
+    }
+    
+    updateProgress();
+    updateStats();
+    
+    // Check if level is completed
+    if (successfulKicks >= 9) {
+        nextKickBtn.classList.add('hidden');
+        bonusBtn.classList.remove('hidden');
+        resultMessage.textContent += " Bạn đã hoàn thành cấp độ này!";
+    }
+}
+
+// Reset stats khi chọn level mới
+function selectLevel(level) {
+    currentLevel = parseInt(level);
+    currentLevelText.textContent = levels[currentLevel].name;
+    levelDescription.textContent = levels[currentLevel].description;
+    successfulKicks = 0;
+    stats.success = 0;
+    stats.fail = 0;
+    updateProgress();
+    updateStats();
+    showScreen(introScreen);
+}
     // Initialize game
     function initGame() {
         showScreen(levelSelectScreen);
